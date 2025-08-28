@@ -2,19 +2,18 @@ import React, { FC, useState, useEffect } from "react";
 import { movieInfoRequest } from "@/API/movieInfoAPI";
 
 const MovieInfo: FC = () => {
-  const [movie, setMovie] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchMovieInfo = async function () {
-      const responseFromAPI = await movieInfoRequest("Batman");
-      setMovie(responseFromAPI);
-      console.log(responseFromAPI);
-    };
-
-    fetchMovieInfo();
-  }, []);
-
-  return <div>{movie && <h1>{movie.Title}</h1>}</div>;
+  return (
+    <div>
+      {movie && (
+        <>
+          <img src={movie.Poster} alt="movie poster" />
+          <h1>{movie.Title}</h1>
+          <p>{movie.Year}</p>
+          <p>{movie.Released}</p>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default MovieInfo;
