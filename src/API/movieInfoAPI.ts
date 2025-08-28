@@ -1,6 +1,4 @@
-//http://www.omdbapi.com/?apikey=http://www.omdbapi.com/?i=tt3896198&apikey=5e32b41b&
-
-const apiKey = "5e32b41b";
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
 export const movieInfoRequest = async function (title: string) {
   try {
