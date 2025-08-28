@@ -1,14 +1,19 @@
 import React, { FC, useState, useEffect } from "react";
 import { movieInfoRequest } from "@/API/movieInfoAPI";
+import { movieTypes } from "@/app/movieTypes/movieTypes";
 
-const MovieInfo: FC = () => {
+interface IMovieInfoProps {
+  movie: movieTypes;
+}
+
+const MovieInfo: FC<IMovieInfoProps> = ({ movie }) => {
   return (
-    <div>
+    <div className="border p-4 rounded shadow hover:shadow-lg transition">
       {movie && (
         <>
-          <img src={movie.Poster} alt="movie poster" />
-          <h1>{movie.Title}</h1>
-          <p>{movie.Year}</p>
+          <img className=" h-auto mb-2" src={movie.Poster} alt="movie poster" />
+          <h1 className="font-bold text-lg">{movie.Title}</h1>
+          <p className="text-sm text-gray-500">{movie.Year}</p>
           <p>{movie.Released}</p>
         </>
       )}

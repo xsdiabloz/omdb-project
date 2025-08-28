@@ -1,15 +1,20 @@
 "use client";
 import React, { FC, useEffect, useState } from "react";
-import MovieList from "../MovieList/MovieList";
+import MovieList from "../moviesList/MoviesList";
 import { movieInfoRequest } from "@/API/movieInfoAPI";
+import { movieTypes } from "@/app/movieTypes/movieTypes";
 
 const Main: FC = () => {
-  const [movie, setMovie] = useState<any>(null);
+  const [movies, setMovies] = useState<movieTypes[]>([]);
 
   useEffect(() => {
     const fetchMovieInfo = async function () {
-      const responseFromAPI = await movieInfoRequest("Batman");
-      setMovie(responseFromAPI);
+      const responseFromAPI = await movieInfoRequest("Halloween");
+      if (responseFromAPI && responseFromAPI.Response === "True")
+        setMovies([responseFromAPI]);
+      else {
+        console.warn("Фильм не найден");
+      }
       console.log(responseFromAPI);
     };
 
@@ -18,7 +23,7 @@ const Main: FC = () => {
 
   return (
     <div>
-      <MovieList movie={movie} />
+      <MovieList movies={movies} />
     </div>
   );
 };
