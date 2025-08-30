@@ -1,29 +1,46 @@
 "use client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import MovieList from "../moviesList/MoviesList";
 import { movieInfoRequest } from "@/API/movieInfoAPI";
 import { movieTypes } from "@/app/movieTypes/movieTypes";
 
 const Main: FC = () => {
   const [movies, setMovies] = useState<movieTypes[]>([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchMovieInfo = async function () {
-      const responseFromAPI = await movieInfoRequest("Halloween");
-      if (responseFromAPI && responseFromAPI.Response === "True")
-        setMovies([responseFromAPI]);
-      else {
-        console.warn("Фильм не найден");
-      }
-      console.log(responseFromAPI);
-    };
+  const fetchMovieInfo = async () => {
+    if (!query) return;
+    setLoading(true);
+    const responseFromAPI = await movieInfoRequest(query);
 
-    fetchMovieInfo();
-  }, []);
+    if (responseFromAPI.Response === "True" && responseFromAPI.Search) {
+      setMovies(responseFromAPI.Search);
+    } else {
+      setMovies([]);
+    }
 
+    setLoading(false);
+  };
   return (
-    <div>
-      <MovieList movies={movies} />
+    <div className="flex flex-col justify-center items-center h-screen">
+      <input
+        className="border p-2 rounded mb-2"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        type="text"
+      />
+      <button className="mb-4" onClick={fetchMovieInfo}>
+        Search
+      </button>
+
+      {!loading ? (
+        <MovieList movies={movies} />
+      ) : (
+        <div className="grid place-items-center min-h-[80vh]">
+          <div className="w-[65px] h-[65px] rounded-full border-5 border-gray-400 border-t-purple-700 animate-spin-slow"></div>
+        </div>
+      )}
     </div>
   );
 };

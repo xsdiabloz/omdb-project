@@ -11,10 +11,13 @@ const MovieInfo: FC<IMovieInfoProps> = ({ movie }) => {
     <div className="border p-4 rounded shadow hover:shadow-lg transition">
       {movie && (
         <>
-          <img className=" h-auto mb-2" src={movie.Poster} alt="movie poster" />
-          <h1 className="font-bold text-lg">{movie.Title}</h1>
+          <img
+            className="w-full rounded"
+            src={movie.Poster}
+            alt="movie poster"
+          />
+          <h1 className="text-center mt-2">{movie.Title}</h1>
           <p className="text-sm text-gray-500">{movie.Year}</p>
-          <p>{movie.Released}</p>
         </>
       )}
     </div>

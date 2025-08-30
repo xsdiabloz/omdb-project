@@ -8,7 +8,7 @@ interface IMovieListProps {
 
 const MoviesList: FC<IMovieListProps> = ({ movies }) => {
   return (
-    <div>
+    <div className="flex flex-wrap justify-center gap-4">
       {movies?.map((m, idx) => (
         <MovieInfo key={idx} movie={m} />
       ))}
