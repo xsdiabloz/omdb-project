@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-:root {}
+:root {
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+}
 
 @theme inline {
   --color-background: var(--background);
