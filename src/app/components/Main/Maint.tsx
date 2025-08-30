@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import MovieList from "../moviesList/MoviesList";
 import { movieInfoRequest } from "@/API/movieInfoAPI";
 import { movieTypes } from "@/app/movieTypes/movieTypes";
@@ -20,25 +20,26 @@ const Main: FC = () => {
     } else {
       setMovies([]);
     }
-
     setLoading(false);
   };
+
   return (
     <div className="flex flex-col items-center h-screen">
       <input
-        className="border p-2 rounded m-2"
+        placeholder="Search movie..."
+        className="border p-2 rounded m-2 bg-white"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         type="text"
       />
       <button
-        className="bg-teal-500 hover:bg-teal-700 p-2 rounded cursor-pointer transition"
+        className="mb-4 mt-4 bg-purple-500 cursor-pointer hover:bg-purple-700 text-white p-2 rounded transition"
         onClick={fetchMovieInfo}
       >
         Search
       </button>
 
-      {!loading ? <MovieList movies={movies} /> : <Spinner />}
+      {loading ? <Spinner /> : <MovieList movies={movies} />}
     </div>
   );
 };
