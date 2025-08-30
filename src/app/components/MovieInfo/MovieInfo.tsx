@@ -8,7 +8,7 @@ interface IMovieInfoProps {
 
 const MovieInfo: FC<IMovieInfoProps> = ({ movie }) => {
   return (
-    <div className="border p-4 rounded shadow hover:shadow-lg transition">
+    <div className="border p-4 m-4 rounded shadow hover:shadow-lg transition">
       {movie && (
         <>
           <img
